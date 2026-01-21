@@ -40,7 +40,21 @@ function calcPeso() {
   document.getElementById("peso-result").innerText = `Dose total: ${result.toFixed(2)} mg`;
 }
 
-function buscarGoogle() {
-  const q = document.getElementById("google-query").value;
-  if (q) window.open("https://www.google.com/search?q=" + encodeURIComponent(q), "_blank");
+function calcGotejamento() {
+  const vol = parseFloat(document.getElementById("got-vol").value);
+  const time = parseFloat(document.getElementById("got-time").value);
+  const drop = parseFloat(document.getElementById("got-drop").value);
+  const gttmin = (vol * drop) / time;
+  document.getElementById("got-result").innerText = `Gotejamento: ${gttmin.toFixed(2)} gtt/min`;
 }
+
+function calcAntibiotico() {
+  const dose = parseFloat(document.getElementById("anti-dose").value);
+  const frasco = parseFloat(document.getElementById("anti-frasco").value);
+  const result = dose / frasco;
+  document.getElementById("anti-result").innerText = `Volume necessário: ${result.toFixed(2)} mL`;
+}
+
+function calcInjetavel() {
+  const dose = parseFloat(document.getElementById("inj-dose").value);
+  const conc = parse
