@@ -39,7 +39,7 @@ header p {
 /* Mobile-first: padrão é 2 colunas (celular) */
 .tabs {
   display: grid;
-  grid-template-columns: repeat(2, 1fr);
+  grid-template-columns: repeat(3, 1fr);
   gap: 12px;
   padding: 1rem;
 }
@@ -133,3 +133,4 @@ footer {
   button { width: calc(50% - 6px); } /* dois botões lado a lado */
   .result { font-size: 14px; }
 }
+
