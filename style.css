@@ -25,21 +25,19 @@ header {
 }
 
 .tabs {
-  display: flex;
-  flex-wrap: wrap;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr); /* 3 colunas */
   gap: 12px;
-  justify-content: center;
   padding: 1rem;
 }
 
 .tab {
-  flex: 1 1 45%;
   padding: 16px;
   border-radius: 12px;
   border: 1px solid var(--border);
   background: #fff;
   color: var(--primary);
-  font-size: 16px;
+  font-size: 14px;
   font-weight: 600;
   text-align: center;
   cursor: pointer;
@@ -58,19 +56,4 @@ header {
   background: var(--card);
 }
 
-.hidden { display: none; }
-
-button {
-  margin-top: 0.5rem;
-  padding: 0.5rem;
-  background: var(--primary);
-  color: #fff;
-  border: none;
-  border-radius: 6px;
-  cursor: pointer;
-}
-
-.result { margin-top: 8px; }
-.safe { color: var(--safe); }
-.danger { color: var(--accent); }
-.hint { font-size: 12px; color: var(--muted); }
+.hidden { display
