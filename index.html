@@ -16,11 +16,16 @@
         <button class="tab" data-tab="solidos">Sólidos</button>
         <button class="tab" data-tab="infusao">Infusão</button>
         <button class="tab" data-tab="peso">Peso</button>
+        <button class="tab" data-tab="gotejamento">Gotejamento</button>
+        <button class="tab" data-tab="antibiotico">Antibiótico</button>
+        <button class="tab" data-tab="injetavel">Injetável</button>
+        <button class="tab" data-tab="insulina">Insulina</button>
         <button class="tab" data-tab="google">Google</button>
       </nav>
     </header>
 
     <main>
+      <!-- Líquidos -->
       <section id="liquidos" class="card">
         <h2>Líquidos</h2>
         <input type="number" id="liq-dose" placeholder="Dose (mg)">
@@ -29,6 +34,7 @@
         <p id="liq-result"></p>
       </section>
 
+      <!-- Sólidos -->
       <section id="solidos" class="card hidden">
         <h2>Sólidos</h2>
         <input type="number" id="sol-dose" placeholder="Dose (mg)">
@@ -37,6 +43,7 @@
         <p id="sol-result"></p>
       </section>
 
+      <!-- Infusão -->
       <section id="infusao" class="card hidden">
         <h2>Infusão</h2>
         <input type="number" id="inf-vol" placeholder="Volume (mL)">
@@ -46,6 +53,7 @@
         <p id="inf-result"></p>
       </section>
 
+      <!-- Peso -->
       <section id="peso" class="card hidden">
         <h2>Peso</h2>
         <input type="number" id="peso-kg" placeholder="Peso (kg)">
@@ -54,6 +62,44 @@
         <p id="peso-result"></p>
       </section>
 
+      <!-- Gotejamento -->
+      <section id="gotejamento" class="card hidden">
+        <h2>Gotejamento</h2>
+        <input type="number" id="got-vol" placeholder="Volume (mL)">
+        <input type="number" id="got-time" placeholder="Tempo (min)">
+        <input type="number" id="got-drop" placeholder="Fator (gtt/mL)">
+        <button onclick="calcGotejamento()">Calcular</button>
+        <p id="got-result"></p>
+      </section>
+
+      <!-- Antibiótico -->
+      <section id="antibiotico" class="card hidden">
+        <h2>Antibiótico</h2>
+        <input type="number" id="anti-dose" placeholder="Dose prescrita (mg)">
+        <input type="number" id="anti-frasco" placeholder="Concentração do frasco (mg/mL)">
+        <button onclick="calcAntibiotico()">Calcular</button>
+        <p id="anti-result"></p>
+      </section>
+
+      <!-- Injetável -->
+      <section id="injetavel" class="card hidden">
+        <h2>Injetável</h2>
+        <input type="number" id="inj-dose" placeholder="Dose (mg)">
+        <input type="number" id="inj-conc" placeholder="Concentração (mg/mL)">
+        <button onclick="calcInjetavel()">Calcular</button>
+        <p id="inj-result"></p>
+      </section>
+
+      <!-- Insulina -->
+      <section id="insulina" class="card hidden">
+        <h2>Insulina</h2>
+        <input type="number" id="insu-dose" placeholder="Dose (UI)">
+        <input type="number" id="insu-conc" placeholder="Concentração (UI/mL)">
+        <button onclick="calcInsulina()">Calcular</button>
+        <p id="insu-result"></p>
+      </section>
+
+      <!-- Google -->
       <section id="google" class="card hidden">
         <h2>Busca no Google</h2>
         <input type="text" id="google-query" placeholder="Digite o termo">
