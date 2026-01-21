@@ -36,20 +36,18 @@ header p {
   opacity: 0.9;
 }
 
-/* Tabs em 3 colunas com responsividade */
+/* Mobile-first: padrão é 2 colunas (celular) */
 .tabs {
   display: grid;
-  grid-template-columns: repeat(3, 1fr); /* padrão: 3 colunas (desktop) */
+  grid-template-columns: repeat(2, 1fr);
   gap: 12px;
   padding: 1rem;
 }
 
-@media (max-width: 768px) {
-  .tabs { grid-template-columns: repeat(2, 1fr); } /* tablet */
-}
-@media (max-width: 480px) {
+/* Tablets e desktops → 3 colunas */
+@media (min-width: 768px) {
   .tabs {
-    grid-template-columns: repeat(2, 1fr); /* celulares → 2 colunas */
+    grid-template-columns: repeat(3, 1fr);
   }
 }
 
@@ -135,4 +133,3 @@ footer {
   button { width: calc(50% - 6px); } /* dois botões lado a lado */
   .result { font-size: 14px; }
 }
-
