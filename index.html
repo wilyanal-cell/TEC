@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>EnferCalc — Administração de Medicamentos</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="app">
+    <header>
+      <h1>EnferCalc</h1>
+      <p>Administração de medicamentos — cálculos básicos</p>
+      <nav>
+        <button class="tab active" data-tab="liquidos">Líquidos</button>
+        <button class="tab" data-tab="solidos">Sólidos</button>
+        <button class="tab" data-tab="infusao">Infusão</button>
+        <button class="tab" data-tab="peso">Peso</button>
+        <button class="tab" data-tab="google">Google</button>
+      </nav>
+    </header>
+
+    <main>
+      <section id="liquidos" class="card">
+        <h2>Líquidos</h2>
+        <input type="number" id="liq-dose" placeholder="Dose (mg)">
+        <input type="number" id="liq-conc" placeholder="Concentração (mg/mL)">
+        <button onclick="calcLiquidos()">Calcular</button>
+        <p id="liq-result"></p>
+      </section>
+
+      <section id="solidos" class="card hidden">
+        <h2>Sólidos</h2>
+        <input type="number" id="sol-dose" placeholder="Dose (mg)">
+        <input type="number" id="sol-strength" placeholder="Força (mg/unidade)">
+        <button onclick="calcSolidos()">Calcular</button>
+        <p id="sol-result"></p>
+      </section>
+
+      <section id="infusao" class="card hidden">
+        <h2>Infusão</h2>
+        <input type="number" id="inf-vol" placeholder="Volume (mL)">
+        <input type="number" id="inf-time" placeholder="Tempo (h)">
+        <input type="number" id="inf-drop" placeholder="Fator (gtt/mL)">
+        <button onclick="calcInfusao()">Calcular</button>
+        <p id="inf-result"></p>
+      </section>
+
+      <section id="peso" class="card hidden">
+        <h2>Peso</h2>
+        <input type="number" id="peso-kg" placeholder="Peso (kg)">
+        <input type="number" id="peso-mgkg" placeholder="Dose (mg/kg)">
+        <button onclick="calcPeso()">Calcular</button>
+        <p id="peso-result"></p>
+      </section>
+
+      <section id="google" class="card hidden">
+        <h2>Busca no Google</h2>
+        <input type="text" id="google-query" placeholder="Digite o termo">
+        <button onclick="buscarGoogle()">Buscar</button>
+      </section>
+    </main>
+  </div>
+  <script src="script.js"></script>
+</body>
+</html>
