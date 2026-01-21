@@ -48,7 +48,9 @@ header p {
   .tabs { grid-template-columns: repeat(2, 1fr); } /* tablet */
 }
 @media (max-width: 480px) {
-  .tabs { grid-template-columns: 1fr; } /* celular */
+  .tabs {
+    grid-template-columns: repeat(2, 1fr); /* celulares → 2 colunas */
+  }
 }
 
 .tab {
@@ -133,3 +135,4 @@ footer {
   button { width: calc(50% - 6px); } /* dois botões lado a lado */
   .result { font-size: 14px; }
 }
+
