@@ -1,17 +1,17 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0" />
   <title>EnferCalc — Administração de Medicamentos</title>
-  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="style.css" />
 </head>
 <body>
   <div class="app">
     <header>
-      <h1>EnferCalc</h1>
-      <p>Administração de medicamentos — cálculos básicos</p>
-      <nav>
+      <h1 class="title">EnferCalc</h1>
+      <p class="subtitle">Administração de medicamentos — cálculos básicos</p>
+      <nav class="tabs">
         <button class="tab active" data-tab="liquidos">Líquidos</button>
         <button class="tab" data-tab="solidos">Sólidos</button>
         <button class="tab" data-tab="infusao">Infusão</button>
@@ -27,86 +27,178 @@
     <main>
       <!-- Líquidos -->
       <section id="liquidos" class="card">
-        <h2>Líquidos</h2>
-        <input type="number" id="liq-dose" placeholder="Dose (mg)">
-        <input type="number" id="liq-conc" placeholder="Concentração (mg/mL)">
-        <button onclick="calcLiquidos()">Calcular</button>
-        <p id="liq-result"></p>
+        <h2 class="section-title">Líquidos</h2>
+        <div class="grid">
+          <label class="field">
+            <span class="label">Dose (mg)</span>
+            <input type="number" id="liq-dose" class="input" placeholder="Ex.: 250" />
+          </label>
+          <label class="field">
+            <span class="label">Concentração (mg/mL)</span>
+            <input type="number" id="liq-conc" class="input" placeholder="Ex.: 50" />
+          </label>
+          <button class="btn" id="liq-calc">Calcular</button>
+          <p id="liq-result" class="result">Informe dose e concentração para calcular.</p>
+          <p class="hint">Fórmula: volume (mL) = dose (mg) ÷ concentração (mg/mL).</p>
+        </div>
       </section>
 
       <!-- Sólidos -->
       <section id="solidos" class="card hidden">
-        <h2>Sólidos</h2>
-        <input type="number" id="sol-dose" placeholder="Dose (mg)">
-        <input type="number" id="sol-strength" placeholder="Força (mg/unidade)">
-        <button onclick="calcSolidos()">Calcular</button>
-        <p id="sol-result"></p>
+        <h2 class="section-title">Sólidos</h2>
+        <div class="grid">
+          <label class="field">
+            <span class="label">Dose (mg)</span>
+            <input type="number" id="sol-dose" class="input" placeholder="Ex.: 500" />
+          </label>
+          <label class="field">
+            <span class="label">Força (mg/unidade)</span>
+            <input type="number" id="sol-strength" class="input" placeholder="Ex.: 250" />
+          </label>
+          <button class="btn" id="sol-calc">Calcular</button>
+          <p id="sol-result" class="result">Informe dose e força para calcular.</p>
+          <p class="hint">Fórmula: unidades = dose (mg) ÷ força (mg/unidade).</p>
+        </div>
       </section>
 
       <!-- Infusão -->
       <section id="infusao" class="card hidden">
-        <h2>Infusão</h2>
-        <input type="number" id="inf-vol" placeholder="Volume (mL)">
-        <input type="number" id="inf-time" placeholder="Tempo (h)">
-        <input type="number" id="inf-drop" placeholder="Fator (gtt/mL)">
-        <button onclick="calcInfusao()">Calcular</button>
-        <p id="inf-result"></p>
+        <h2 class="section-title">Infusão</h2>
+        <div class="grid">
+          <label class="field">
+            <span class="label">Volume (mL)</span>
+            <input type="number" id="inf-vol" class="input" placeholder="Ex.: 500" />
+          </label>
+          <label class="field">
+            <span class="label">Tempo (h)</span>
+            <input type="number" id="inf-time" class="input" placeholder="Ex.: 4" />
+          </label>
+          <label class="field">
+            <span class="label">Fator (gtt/mL)</span>
+            <input type="number" id="inf-drop" class="input" placeholder="Ex.: 20" />
+          </label>
+          <button class="btn" id="inf-calc">Calcular</button>
+          <p id="inf-result" class="result">Informe volume, tempo e fator.</p>
+          <p class="hint">mL/h = volume ÷ tempo | gtt/min = (volume × fator) ÷ (tempo × 60).</p>
+        </div>
       </section>
 
       <!-- Peso -->
       <section id="peso" class="card hidden">
-        <h2>Peso</h2>
-        <input type="number" id="peso-kg" placeholder="Peso (kg)">
-        <input type="number" id="peso-mgkg" placeholder="Dose (mg/kg)">
-        <button onclick="calcPeso()">Calcular</button>
-        <p id="peso-result"></p>
+        <h2 class="section-title">Peso</h2>
+        <div class="grid">
+          <label class="field">
+            <span class="label">Peso (kg)</span>
+            <input type="number" id="peso-kg" class="input" placeholder="Ex.: 70" />
+          </label>
+          <label class="field">
+            <span class="label">Dose (mg/kg)</span>
+            <input type="number" id="peso-mgkg" class="input" placeholder="Ex.: 10" />
+          </label>
+          <button class="btn" id="peso-calc">Calcular</button>
+          <p id="peso-result" class="result">Informe peso e dose por kg.</p>
+          <p class="hint">Dose total (mg) = peso (kg) × dose (mg/kg).</p>
+        </div>
       </section>
 
       <!-- Gotejamento -->
       <section id="gotejamento" class="card hidden">
-        <h2>Gotejamento</h2>
-        <input type="number" id="got-vol" placeholder="Volume (mL)">
-        <input type="number" id="got-time" placeholder="Tempo (min)">
-        <input type="number" id="got-drop" placeholder="Fator (gtt/mL)">
-        <button onclick="calcGotejamento()">Calcular</button>
-        <p id="got-result"></p>
+        <h2 class="section-title">Gotejamento</h2>
+        <div class="grid">
+          <label class="field">
+            <span class="label">Volume (mL)</span>
+            <input type="number" id="got-vol" class="input" placeholder="Ex.: 500" />
+          </label>
+          <label class="field">
+            <span class="label">Tempo (min)</span>
+            <input type="number" id="got-time" class="input" placeholder="Ex.: 120" />
+          </label>
+          <label class="field">
+            <span class="label">Fator (gtt/mL)</span>
+            <input type="number" id="got-drop" class="input" placeholder="Ex.: 20" />
+          </label>
+          <button class="btn" id="got-calc">Calcular</button>
+          <p id="got-result" class="result">Informe volume, tempo e fator.</p>
+          <p class="hint">gtt/min = (volume × fator) ÷ tempo.</p>
+        </div>
       </section>
 
       <!-- Antibiótico -->
       <section id="antibiotico" class="card hidden">
-        <h2>Antibiótico</h2>
-        <input type="number" id="anti-dose" placeholder="Dose prescrita (mg)">
-        <input type="number" id="anti-frasco" placeholder="Concentração do frasco (mg/mL)">
-        <button onclick="calcAntibiotico()">Calcular</button>
-        <p id="anti-result"></p>
+        <h2 class="section-title">Antibiótico</h2>
+        <div class="grid">
+          <label class="field">
+            <span class="label">Dose prescrita (mg)</span>
+            <input type="number" id="anti-dose" class="input" placeholder="Ex.: 1000" />
+          </label>
+          <label class="field">
+            <span class="label">Concentração do frasco (mg/mL)</span>
+            <input type="number" id="anti-frasco" class="input" placeholder="Ex.: 250" />
+          </label>
+          <button class="btn" id="anti-calc">Calcular</button>
+          <p id="anti-result" class="result">Informe dose e concentração do frasco.</p>
+          <p class="hint">Volume (mL) = dose (mg) ÷ concentração (mg/mL).</p>
+        </div>
       </section>
 
       <!-- Injetável -->
       <section id="injetavel" class="card hidden">
-        <h2>Injetável</h2>
-        <input type="number" id="inj-dose" placeholder="Dose (mg)">
-        <input type="number" id="inj-conc" placeholder="Concentração (mg/mL)">
-        <button onclick="calcInjetavel()">Calcular</button>
-        <p id="inj-result"></p>
+        <h2 class="section-title">Injetável</h2>
+        <div class="grid">
+          <label class="field">
+            <span class="label">Dose (mg)</span>
+            <input type="number" id="inj-dose" class="input" placeholder="Ex.: 75" />
+          </label>
+          <label class="field">
+            <span class="label">Concentração (mg/mL)</span>
+            <input type="number" id="inj-conc" class="input" placeholder="Ex.: 25" />
+          </label>
+          <button class="btn" id="inj-calc">Calcular</button>
+          <p id="inj-result" class="result">Informe dose e concentração.</p>
+          <p class="hint">Volume (mL) = dose (mg) ÷ concentração (mg/mL).</p>
+        </div>
       </section>
 
       <!-- Insulina -->
       <section id="insulina" class="card hidden">
-        <h2>Insulina</h2>
-        <input type="number" id="insu-dose" placeholder="Dose (UI)">
-        <input type="number" id="insu-conc" placeholder="Concentração (UI/mL)">
-        <button onclick="calcInsulina()">Calcular</button>
-        <p id="insu-result"></p>
+        <h2 class="section-title">Insulina</h2>
+        <div class="grid">
+          <label class="field">
+            <span class="label">Dose (UI)</span>
+            <input type="number" id="insu-dose" class="input" placeholder="Ex.: 12" />
+          </label>
+          <label class="field">
+            <span class="label">Concentração (UI/mL)</span>
+            <input type="number" id="insu-conc" class="input" placeholder="Ex.: 100 (U-100)" />
+          </label>
+          <button class="btn" id="insu-calc">Calcular</button>
+          <p id="insu-result" class="result">Informe dose e concentração.</p>
+          <p class="hint">Volume (mL) = dose (UI) ÷ concentração (UI/mL). Ex.: U-100 → 100 UI/mL.</p>
+        </div>
       </section>
 
       <!-- Google -->
       <section id="google" class="card hidden">
-        <h2>Busca no Google</h2>
-        <input type="text" id="google-query" placeholder="Digite o termo">
-        <button onclick="buscarGoogle()">Buscar</button>
+        <h2 class="section-title">Busca no Google</h2>
+        <div class="grid">
+          <label class="field">
+            <span class="label">Termo de busca</span>
+            <input type="text" id="google-query" class="input" placeholder="Ex.: protocolo administração ceftriaxona" />
+          </label>
+          <div class="row">
+            <button class="btn" id="google-search">Buscar</button>
+            <button class="btn danger" id="google-clear">Limpar</button>
+          </div>
+          <p id="google-result" class="result">Digite um termo e clique em Buscar. A pesquisa abrirá em nova aba.</p>
+        </div>
       </section>
     </main>
+
+    <footer>
+      Ferramenta educativa. Confirme cálculos e protocolos com fontes confiáveis e profissionais habilitados.
+    </footer>
   </div>
+
   <script src="script.js"></script>
 </body>
 </html>
