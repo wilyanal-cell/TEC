@@ -1,211 +1,135 @@
-// Alternar abas
-document.querySelectorAll(".tab").forEach(btn => {
-  btn.addEventListener("click", () => {
-    document.querySelectorAll(".tab").forEach(b => b.classList.remove("active"));
-    btn.classList.add("active");
-    document.querySelectorAll("main section").forEach(sec => sec.classList.add("hidden"));
-    document.getElementById(btn.dataset.tab).classList.remove("hidden");
-  });
-});
-
-// Utilidades
-const toNum = v => parseFloat(v) || NaN;
-const fmt = (n, d = 2) => isFinite(n) ? Number(n).toFixed(d) : "—";
-const setVal = (id, v) => (document.getElementById(id).value = v);
-
-// =====================
-// Líquidos
-// =====================
-function calcLiquidos() {
-  const dose = toNum(document.getElementById("liq-dose").value);
-  const conc = toNum(document.getElementById("liq-conc").value);
-  const out = document.getElementById("liq-result");
-  if (!(dose > 0) || !(conc > 0)) return out.textContent = "⚠️ Preencha os campos.";
-  const vol = dose / conc;
-  out.innerHTML = `Fórmula: Volume = Dose ÷ Concentração<br>Resultado: ${fmt(vol)} mL`;
-}
-function treinoLiquidos() {
-  setVal("liq-dose", Math.floor(Math.random() * 500) + 50);
-  setVal("liq-conc", Math.floor(Math.random() * 50) + 10);
-  calcLiquidos();
+:root {
+  --bg: #ffffff;
+  --card: #f9fafb;
+  --muted: #6b7280;
+  --text: #111827;
+  --primary: #9333ea;
+  --primary-2: #a855f7;
+  --accent: #ef4444;
+  --safe: #22c55e;
+  --border: #e5e7eb;
 }
 
-// =====================
-// Sólidos
-// =====================
-function calcSolidos() {
-  const dose = toNum(document.getElementById("sol-dose").value);
-  const strength = toNum(document.getElementById("sol-strength").value);
-  const out = document.getElementById("sol-result");
-  if (!(dose > 0) || !(strength > 0)) return out.textContent = "⚠️ Preencha os campos.";
-  const units = dose / strength;
-  out.innerHTML = `Fórmula: Unidades = Dose ÷ Força<br>Resultado: ${fmt(units)} unidades`;
-}
-function treinoSolidos() {
-  setVal("sol-dose", Math.floor(Math.random() * 1000) + 100);
-  setVal("sol-strength", [125, 250, 500][Math.floor(Math.random() * 3)]);
-  calcSolidos();
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+  background: var(--bg);
+  color: var(--text);
 }
 
-// =====================
-// Infusão
-// =====================
-function calcInfusao() {
-  const vol = toNum(document.getElementById("inf-vol").value);
-  const timeH = toNum(document.getElementById("inf-time").value);
-  const drop = toNum(document.getElementById("inf-drop").value);
-  const out = document.getElementById("inf-result");
-  if (!(vol > 0) || !(timeH > 0) || !(drop > 0)) return out.textContent = "⚠️ Preencha os campos.";
-  const mlh = vol / timeH;
-  const gttmin = (vol * drop) / (timeH * 60);
-  out.innerHTML = `Fórmulas:<br>mL/h = Volume ÷ Tempo<br>gtt/min = (Volume × Fator) ÷ (Tempo × 60)<br>Resultado: ${fmt(mlh)} mL/h | ${fmt(gttmin)} gtt/min`;
-}
-function treinoInfusao() {
-  setVal("inf-vol", [250, 500, 1000][Math.floor(Math.random() * 3)]);
-  setVal("inf-time", [1, 2, 4, 8][Math.floor(Math.random() * 4)]);
-  setVal("inf-drop", [10, 15, 20, 60][Math.floor(Math.random() * 4)]);
-  calcInfusao();
+header {
+  text-align: center;
+  padding: 1rem;
+  background: var(--primary);
+  color: #fff;
 }
 
-// =====================
-// Peso
-// =====================
-function calcPeso() {
-  const kg = toNum(document.getElementById("peso-kg").value);
-  const mgkg = toNum(document.getElementById("peso-mgkg").value);
-  const out = document.getElementById("peso-result");
-  if (!(kg > 0) || !(mgkg > 0)) return out.textContent = "⚠️ Preencha os campos.";
-  const total = kg * mgkg;
-  out.innerHTML = `Fórmula: Dose total = Peso × Dose/kg<br>Resultado: ${fmt(total)} mg`;
+header h1 {
+  margin: 0 0 4px 0;
+  font-size: 22px;
 }
-function treinoPeso() {
-  setVal("peso-kg", Math.floor(Math.random() * 60) + 40);
-  setVal("peso-mgkg", Math.floor(Math.random() * 10) + 5);
-  calcPeso();
+header p {
+  margin: 0;
+  font-size: 13px;
+  opacity: 0.9;
 }
 
-// =====================
-// Gotejamento
-// =====================
-function calcGotejamento() {
-  const vol = toNum(document.getElementById("got-vol").value);
-  const timeMin = toNum(document.getElementById("got-time").value);
-  const drop = toNum(document.getElementById("got-drop").value);
-  const out = document.getElementById("got-result");
-  if (!(vol > 0) || !(timeMin > 0) || !(drop > 0)) return out.textContent = "⚠️ Preencha os campos.";
-  const gttmin = (vol * drop) / timeMin;
-  out.innerHTML = `Fórmula: gtt/min = (Volume × Fator) ÷ Tempo<br>Resultado: ${fmt(gttmin)} gtt/min`;
-}
-function treinoGotejamento() {
-  setVal("got-vol", [250, 500, 1000][Math.floor(Math.random() * 3)]);
-  setVal("got-time", [60, 120, 240][Math.floor(Math.random() * 3)]);
-  setVal("got-drop", [10, 15, 20, 60][Math.floor(Math.random() * 4)]);
-  calcGotejamento();
+/* Tabs em 3 colunas com responsividade */
+.tabs {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr); /* padrão: 3 colunas (desktop) */
+  gap: 12px;
+  padding: 1rem;
 }
 
-// =====================
-// Antibiótico
-// =====================
-function calcAntibiotico() {
-  const dose = toNum(document.getElementById("anti-dose").value);
-  const frasco = toNum(document.getElementById("anti-frasco").value);
-  const out = document.getElementById("anti-result");
-  if (!(dose > 0) || !(frasco > 0)) return out.textContent = "⚠️ Preencha os campos.";
-  const vol = dose / frasco;
-  out.innerHTML = `Fórmula: Volume = Dose ÷ Concentração<br>Resultado: ${fmt(vol)} mL`;
+@media (max-width: 768px) {
+  .tabs { grid-template-columns: repeat(2, 1fr); } /* tablet */
 }
-function treinoAntibiotico() {
-  setVal("anti-dose", [250, 500, 1000, 2000][Math.floor(Math.random() * 4)]);
-  setVal("anti-frasco", [100, 250, 500][Math.floor(Math.random() * 3)]);
-  calcAntibiotico();
+@media (max-width: 480px) {
+  .tabs { grid-template-columns: 1fr; } /* celular */
 }
 
-// =====================
-// Injetável
-// =====================
-function calcInjetavel() {
-  const dose = toNum(document.getElementById("inj-dose").value);
-  const conc = toNum(document.getElementById("inj-conc").value);
-  const out = document.getElementById("inj-result");
-  if (!(dose > 0) || !(conc > 0)) return out.textContent = "⚠️ Preencha os campos.";
-  const vol = dose / conc;
-  out.innerHTML = `Fórmula: Volume = Dose ÷ Concentração<br>Resultado: ${fmt(vol)} mL`;
+.tab {
+  padding: 14px 10px;
+  border-radius: 12px;
+  border: 1px solid var(--border);
+  background: #fff;
+  color: var(--primary);
+  font-size: 14px;
+  font-weight: 600;
+  text-align: center;
+  cursor: pointer;
+  transition: transform 0.05s ease, box-shadow 0.15s ease;
 }
-function treinoInjetavel() {
-  setVal("inj-dose", Math.floor(Math.random() * 90) + 10);
-  setVal("inj-conc", [10, 25, 50, 100][Math.floor(Math.random() * 4)]);
-  calcInjetavel();
-}
-
-// =====================
-// Insulina
-// =====================
-function calcInsulina() {
-  const dose = toNum(document.getElementById("insu-dose").value);
-  const conc = toNum(document.getElementById("insu-conc").value);
-  const out = document.getElementById("insu-result");
-  if (!(dose > 0) || !(conc > 0)) return out.textContent = "⚠️ Preencha os campos.";
-  const vol = dose / conc;
-  out.innerHTML = `Fórmula: Volume = Dose ÷ Concentração<br>Resultado: ${fmt(vol,3)} mL (seringa)`;
-}
-function treinoInsulina() {
-  setVal("insu-dose", [4, 6, 8, 10, 12, 16, 20][Math.floor(Math.random() * 7)]);
-  setVal("insu-conc", [100, 200][Math.floor(Math.random() * 2)]);
-  calcInsulina();
+.tab:active { transform: scale(0.98); }
+.tab.active {
+  background: linear-gradient(180deg, var(--primary) 0%, var(--primary-2) 100%);
+  color: #fff;
+  box-shadow: 0 6px 16px rgba(147, 51, 234, 0.25);
 }
 
-// =====================
-// Glicose (%)
-// =====================
-function calcGlicose() {
-  const c1 = toNum(document.getElementById("glu-c1").value); // estoque %
-  const c2 = toNum(document.getElementById("glu-c2").value); // desejada %
-  const v2 = toNum(document.getElementById("glu-v2").value); // volume final mL
-  const out = document.getElementById("glu-result");
+/* Cards das abas */
+.card {
+  padding: 1rem;
+  margin: 0 1rem 1rem;
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  background: var(--card);
+}
+.hidden { display: none; }
 
-  if (!(c1 > 0) || !(c2 > 0) || !(v2 > 0)) {
-    out.textContent = "⚠️ Preencha C1, C2 e V2 com valores válidos.";
-    return;
-  }
-  if (c2 > c1) {
-    out.textContent = "⚠️ A concentração desejada (C2) não pode ser maior que a de estoque (C1).";
-    return;
-  }
-
-  // Fórmula: C1·V1 = C2·V2 → V1 = (C2·V2)/C1
-  const v1 = (c2 * v2) / c1;       // mL da solução estoque
-  const diluente = v2 - v1;        // mL de diluente (SF/água)
-
-  out.innerHTML = `
-    <strong>Fórmula:</strong> C1·V1 = C2·V2 → V1 = (C2·V2)/C1<br>
-    <strong>Resultado:</strong> Usar ${fmt(v1)} mL da glicose ${fmt(c1,0)}% + ${fmt(diluente)} mL de diluente para obter ${fmt(v2,0)} mL a ${fmt(c2,0)}%.
-  `;
-
-  if (v1 < 1 || diluente < 1) {
-    out.innerHTML += "<br><span class='danger'>⚠️ Volumes muito baixos, ajuste para precisão.</span>";
-  } else {
-    out.innerHTML += "<br><span class='safe'>✅ Valores plausíveis para preparo.</span>";
-  }
+.card h2 {
+  margin: 0 0 10px 0;
+  font-size: 18px;
 }
 
-function treinoGlicose() {
-  const c1 = [50, 25][Math.floor(Math.random() * 2)]; // estoque 50% ou 25%
-  const c2 = [5, 10, 15][Math.floor(Math.random() * 3)];
-  const v2 = [250, 500, 1000][Math.floor(Math.random() * 3)];
-  setVal("glu-c1", c1);
-  setVal("glu-c2", c2);
-  setVal("glu-v2", v2);
-  calcGlicose();
+/* Inputs e botões */
+input[type="number"],
+input[type="text"] {
+  width: 100%;
+  padding: 10px;
+  margin: 6px 0;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  background: #fff;
+  font-size: 14px;
 }
 
-// =====================
-// Google
-// =====================
-function buscarGoogle() {
-  const q = document.getElementById("google-query").value.trim();
-  if (!q) {
-    alert("Digite um termo para buscar.");
-    return;
-  }
-  window.open("https://www.google.com/search?q=" + encodeURIComponent(q), "_blank", "noopener,noreferrer");
+button {
+  margin-top: 8px;
+  margin-right: 6px;
+  padding: 10px 12px;
+  background: var(--primary);
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: 600;
+  font-size: 14px;
+  transition: filter 0.15s ease, transform 0.05s ease;
+}
+button:hover { filter: brightness(1.05); }
+button:active { transform: scale(0.98); }
+
+/* Estados e mensagens */
+.result { margin-top: 10px; line-height: 1.5; }
+.safe { color: var(--safe); font-weight: 600; }
+.danger { color: var(--accent); font-weight: 600; }
+.hint { font-size: 12px; color: var(--muted); margin-top: 4px; }
+
+/* Rodapé */
+footer {
+  text-align: center;
+  font-size: 12px;
+  color: var(--muted);
+  padding: 1rem;
+}
+
+/* Melhorias de layout em telas pequenas */
+@media (max-width: 480px) {
+  .card { margin: 0 0.75rem 0.75rem; }
+  button { width: calc(50% - 6px); } /* dois botões lado a lado */
+  .result { font-size: 14px; }
 }
